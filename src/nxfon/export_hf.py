@@ -5,6 +5,7 @@ import json
 import shutil
 from collections import Counter
 from collections.abc import Callable, Mapping
+from importlib.resources import files
 from pathlib import Path
 from typing import Literal, TypedDict
 
@@ -48,12 +49,14 @@ class ExportSummary(BaseModel):
     total_rows: int = Field(ge=0)
 
 
-_REGISTRY_PATH = Path(__file__).parents[2] / "config" / "books.nt.json"
-
-
-def load_book_registry(path: Path = _REGISTRY_PATH) -> list[BookRecord]:
+def load_book_registry(path: Path | None = None) -> list[BookRecord]:
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        text = (
+            path.read_text(encoding="utf-8")
+            if path is not None
+            else files("nxfon").joinpath("data/books.nt.json").read_text(encoding="utf-8")
+        )
+        payload = json.loads(text)
     except (OSError, json.JSONDecodeError) as exc:
         raise ValueError(f"invalid New Testament registry: {exc}") from exc
     if not isinstance(payload, list) or len(payload) != 27:
