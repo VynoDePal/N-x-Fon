@@ -10,6 +10,7 @@ from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from nxfon.schemas import Sha256Hex
 from nxfon.segmentation import SegmentPlan
 
 
@@ -20,9 +21,9 @@ class AudioRenderError(ValueError):
 class RenderedSegment(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
-    segment_id: str = Field(min_length=1)
+    segment_id: Sha256Hex
     path: Path
-    sha256: str = Field(min_length=64, max_length=64)
+    sha256: Sha256Hex
     start_sample: int = Field(ge=0)
     end_sample: int = Field(gt=0)
     sample_rate: int = Field(gt=0)

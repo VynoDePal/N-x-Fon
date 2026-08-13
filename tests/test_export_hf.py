@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 
 from nxfon.export_hf import ExportRow, export_audiofolder, load_book_registry
 from nxfon.rights import RightsError
@@ -113,3 +114,12 @@ def test_nt_registry_contains_twenty_seven_unique_books() -> None:
     assert len({book["code"] for book in books}) == 27
     assert books[0]["code"] == "MAT"
     assert books[-1]["code"] == "REV"
+
+
+def test_export_row_rejects_path_traversal_segment_id(tmp_path: Path) -> None:
+    valid = accepted_rows(tmp_path)[0]
+    payload = valid.model_dump()
+    payload["segment_id"] = "../../outside"
+
+    with pytest.raises(ValidationError, match="segment_id"):
+        ExportRow.model_validate(payload)

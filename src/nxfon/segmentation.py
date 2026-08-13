@@ -7,6 +7,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, computed_field
 
 from nxfon.alignment import TimedToken
+from nxfon.schemas import Sha256Hex
 
 
 class SegmentationError(ValueError):
@@ -24,8 +25,8 @@ class SegmentationPolicy(BaseModel):
 class SegmentPlan(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
-    segment_id: str
-    source_sha256: str
+    segment_id: Sha256Hex
+    source_sha256: Sha256Hex
     start_sample: int
     end_sample: int
     sample_rate: int

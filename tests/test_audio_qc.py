@@ -6,6 +6,7 @@ import wave
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 
 from nxfon.audio import AudioRenderError, RenderedSegment, render_wav
 from nxfon.qc import QCPolicy, classify_segment
@@ -125,3 +126,12 @@ def test_clean_segment_is_accepted(tmp_path: Path) -> None:
 
     assert result.status == "accepted"
     assert result.reasons == ()
+
+
+def test_rendered_segment_rejects_non_digest_identifier(tmp_path: Path) -> None:
+    valid = rendered_fixture(tmp_path)
+    payload = valid.model_dump()
+    payload["segment_id"] = "../../unsafe"
+
+    with pytest.raises(ValidationError, match="segment_id"):
+        RenderedSegment.model_validate(payload)

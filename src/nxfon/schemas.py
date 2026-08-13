@@ -3,9 +3,11 @@ from __future__ import annotations
 from datetime import date
 from enum import StrEnum
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator
+
+Sha256Hex = Annotated[str, StringConstraints(pattern=r"^[0-9a-f]{64}$")]
 
 
 class RightsState(StrEnum):
@@ -79,13 +81,6 @@ class SourceMedia(BaseModel):
 
     source_id: str = Field(min_length=1)
     path: Path
-    sha256: str
+    sha256: Sha256Hex
     size_bytes: int = Field(gt=0)
     probe: MediaProbe
-
-    @field_validator("sha256")
-    @classmethod
-    def validate_sha256(cls, value: str) -> str:
-        if len(value) != 64 or any(char not in "0123456789abcdef" for char in value):
-            raise ValueError("sha256 must be lowercase SHA-256")
-        return value

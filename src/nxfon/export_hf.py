@@ -12,7 +12,7 @@ from typing import Literal, TypedDict
 from pydantic import BaseModel, ConfigDict, Field
 
 from nxfon.rights import RightsError
-from nxfon.schemas import RightsDecision
+from nxfon.schemas import RightsDecision, Sha256Hex
 
 
 class BookRecord(TypedDict):
@@ -24,10 +24,10 @@ class BookRecord(TypedDict):
 class ExportRow(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
-    segment_id: str = Field(min_length=1)
+    segment_id: Sha256Hex
     audio_path: Path
-    audio_sha256: str = Field(min_length=64, max_length=64)
-    source_sha256: str = Field(min_length=64, max_length=64)
+    audio_sha256: Sha256Hex
+    source_sha256: Sha256Hex
     book: str = Field(min_length=3, max_length=3)
     chapter: int = Field(gt=0)
     verse_start: int = Field(gt=0)

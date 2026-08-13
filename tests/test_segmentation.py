@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pytest
+from pydantic import ValidationError
 
 from nxfon.alignment import TimedToken
 from nxfon.segmentation import SegmentationError, SegmentationPolicy, plan_segments
@@ -79,3 +80,17 @@ def test_overlapping_or_reordered_tokens_are_rejected() -> None:
 
     with pytest.raises(SegmentationError, match="monotonic"):
         plan_segments(tokens, SAMPLE_RATE, SegmentationPolicy(), "d" * 64)
+
+
+def test_segment_plan_rejects_non_digest_identifier() -> None:
+    valid = plan_segments(
+        [token(0, 3, "safe")],
+        SAMPLE_RATE,
+        SegmentationPolicy(),
+        "e" * 64,
+    )[0]
+    payload = valid.model_dump(exclude_computed_fields=True)
+    payload["segment_id"] = "../unsafe"
+
+    with pytest.raises(ValidationError, match="segment_id"):
+        type(valid).model_validate(payload)
