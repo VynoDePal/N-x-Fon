@@ -2,17 +2,17 @@
   "artifacts": [
     {
       "path": "dist/nxfon-0.1.0a0-py3-none-any.whl",
-      "sha256": "6275993ceeb6f17be51d6c358a742e89e92f3bb0b3ebb014e56dde19bb0e7ff6"
+      "sha256": "2b9cd2489dec9664fe6ba10688d19b217d8a14d0d90185f687f610aef1defdff"
     },
     {
       "path": "dist/nxfon-0.1.0a0.tar.gz",
-      "sha256": "355a138884fa4e09bcd8ef670fd980e1c94ff7952ddcc13f0b43893af6cf48e4"
+      "sha256": "ebe1996246b25aaa4e49c6aeee15c6f12b95c4bb2d73efa03003da3fa8efeeeb"
     }
   ],
   "dataset_target": "VynoDePal/n-x-fon-bible-15s",
-  "generated_at": "2026-08-13T21:06:27+03:00",
+  "generated_at": "2026-08-13T23:25:53+01:00",
   "github_branch": "agent/technical-alpha",
-  "implementation_commit": "2bc4e2734096f31ae7d3e05355e6efb8a7e34d8b",
+  "implementation_commit": "e3a0ce249bb222aabda05847717db1e40e10fad5",
   "language": "fon",
   "media_processed": "synthetic fixtures only",
   "production": "FONBSB-NONDRAMA",
@@ -23,7 +23,7 @@
     {
       "command": "python -m pytest -q",
       "exit_code": 0,
-      "result": "39 passed"
+      "result": "42 passed"
     },
     {
       "command": "python -m ruff check .",
@@ -36,7 +36,7 @@
       "result": "Success: no issues found in 11 source files"
     },
     {
-      "command": "SOURCE_DATE_EPOCH=1786640000 python -m build",
+      "command": "python -m build",
       "exit_code": 0,
       "result": "wheel and source distribution built"
     }
