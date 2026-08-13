@@ -50,3 +50,10 @@ class RightsDecision(BaseModel):
     action: Literal["ingest", "publish"]
     source_id: str
 
+
+class TextRepresentations(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    text_original: str
+    text_nfc: str
+    text_acoustic: str
