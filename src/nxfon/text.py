@@ -9,7 +9,7 @@ class TextIntegrityError(ValueError):
     """Raised when text cannot safely represent a spoken Fongbe utterance."""
 
 
-_LEXICAL_APOSTROPHES = {"'", "’", "ʼ"}
+_LEXICAL_APOSTROPHES = {"'", "’", "ʼ"}  # noqa: RUF001 - intentional Unicode apostrophes
 
 
 def _validate_characters(text: str) -> None:

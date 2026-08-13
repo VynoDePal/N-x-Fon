@@ -67,7 +67,9 @@ def inventory_source(
     local_path = _local_file(path, source_root)
     try:
         metadata = probe(local_path)
-        parsed_probe = metadata if isinstance(metadata, MediaProbe) else MediaProbe.model_validate(metadata)
+        parsed_probe = (
+            metadata if isinstance(metadata, MediaProbe) else MediaProbe.model_validate(metadata)
+        )
     except (ValidationError, TypeError, ValueError, OSError) as exc:
         raise InventoryError(f"invalid media probe metadata: {exc}") from exc
 

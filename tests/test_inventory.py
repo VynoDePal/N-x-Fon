@@ -84,8 +84,26 @@ def test_inventory_refuses_symlink_escape(
 @pytest.mark.parametrize(
     ("probe_result", "message"),
     [
-        ({"codec": "pcm_s16le", "sample_rate": 16_000, "channels": 3, "bitrate": 1, "duration_ms": 1}, "channels"),
-        ({"codec": "pcm_s16le", "sample_rate": 16_000, "channels": 1, "bitrate": 1, "duration_ms": 0}, "duration"),
+        (
+            {
+                "codec": "pcm_s16le",
+                "sample_rate": 16_000,
+                "channels": 3,
+                "bitrate": 1,
+                "duration_ms": 1,
+            },
+            "channels",
+        ),
+        (
+            {
+                "codec": "pcm_s16le",
+                "sample_rate": 16_000,
+                "channels": 1,
+                "bitrate": 1,
+                "duration_ms": 0,
+            },
+            "duration",
+        ),
     ],
 )
 def test_inventory_rejects_invalid_probe_metadata(

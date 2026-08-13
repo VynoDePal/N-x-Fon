@@ -47,7 +47,11 @@ class RightsRecord(BaseModel):
 class RightsDecision(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
-    state: Literal["AUTHORIZED_LOCAL", "AUTHORIZED_PRIVATE_DISTRIBUTION", "AUTHORIZED_PUBLIC_DISTRIBUTION"]
+    state: Literal[
+        "AUTHORIZED_LOCAL",
+        "AUTHORIZED_PRIVATE_DISTRIBUTION",
+        "AUTHORIZED_PUBLIC_DISTRIBUTION",
+    ]
     action: Literal["ingest", "publish"]
     source_id: str
 
