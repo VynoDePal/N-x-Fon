@@ -5,7 +5,7 @@ import json
 import subprocess
 from collections.abc import Callable, Mapping
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, cast
 from urllib.parse import urlsplit
 
 from pydantic import ValidationError
@@ -113,7 +113,7 @@ def ffprobe_media(path: Path) -> MediaProbe:
         return MediaProbe(
             codec=stream["codec_name"],
             sample_rate=int(stream["sample_rate"]),
-            channels=int(stream["channels"]),
+            channels=cast(Literal[1, 2], int(stream["channels"])),
             bitrate=bitrate,
             duration_ms=duration_ms,
         )

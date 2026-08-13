@@ -52,6 +52,11 @@ def validate_rights(
     if not hmac.compare_digest(observed, record.permission_document_sha256):
         raise RightsError("permission document checksum mismatch")
 
+    state: Literal[
+        "AUTHORIZED_LOCAL",
+        "AUTHORIZED_PRIVATE_DISTRIBUTION",
+        "AUTHORIZED_PUBLIC_DISTRIBUTION",
+    ]
     if action == "ingest":
         state = "AUTHORIZED_LOCAL"
     elif record.distribution == Distribution.PRIVATE:
@@ -59,4 +64,3 @@ def validate_rights(
     else:
         state = "AUTHORIZED_PUBLIC_DISTRIBUTION"
     return RightsDecision(state=state, action=action, source_id=record.source_id)
-
