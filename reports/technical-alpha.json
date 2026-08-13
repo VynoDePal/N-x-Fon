@@ -1,0 +1,44 @@
+{
+  "artifacts": [
+    {
+      "path": "dist/nxfon-0.1.0a0-py3-none-any.whl",
+      "sha256": "2b9cd2489dec9664fe6ba10688d19b217d8a14d0d90185f687f610aef1defdff"
+    },
+    {
+      "path": "dist/nxfon-0.1.0a0.tar.gz",
+      "sha256": "ebe1996246b25aaa4e49c6aeee15c6f12b95c4bb2d73efa03003da3fa8efeeeb"
+    }
+  ],
+  "dataset_target": "VynoDePal/n-x-fon-bible-15s",
+  "generated_at": "2026-08-13T23:25:53+01:00",
+  "github_branch": "agent/technical-alpha",
+  "implementation_commit": "e3a0ce249bb222aabda05847717db1e40e10fad5",
+  "language": "fon",
+  "media_processed": "synthetic fixtures only",
+  "production": "FONBSB-NONDRAMA",
+  "registry_in_wheel": true,
+  "rights_state": "LICENSE_BLOCKED",
+  "schema_version": "1",
+  "verification": [
+    {
+      "command": "python -m pytest -q",
+      "exit_code": 0,
+      "result": "42 passed"
+    },
+    {
+      "command": "python -m ruff check .",
+      "exit_code": 0,
+      "result": "All checks passed"
+    },
+    {
+      "command": "python -m mypy src",
+      "exit_code": 0,
+      "result": "Success: no issues found in 11 source files"
+    },
+    {
+      "command": "python -m build",
+      "exit_code": 0,
+      "result": "wheel and source distribution built"
+    }
+  ]
+}

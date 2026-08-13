@@ -1,0 +1,12 @@
+schema_version: "1"
+dataset_id: "n-x-fon-bible-15s"
+source_id: "FONBSB-NONDRAMA"
+audio_rights: "blocked"
+text_rights: "blocked"
+ml_rights: "blocked"
+distribution: "none"
+permission_reference: ""
+permission_document_sha256: ""
+effective_date: "2026-08-13"
+expires_date: null
+authorized_uses: []
